@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FurtherMath", "FurtherMath\FurtherMath.csproj", "{2E73F547-A95B-486D-8CC0-D92045858B26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FurtherMathTests", "FurtherMathTests\FurtherMathTests.csproj", "{2593BAB8-902F-4787-AA53-B3DED2C15CAA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E73F547-A95B-486D-8CC0-D92045858B26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E73F547-A95B-486D-8CC0-D92045858B26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E73F547-A95B-486D-8CC0-D92045858B26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E73F547-A95B-486D-8CC0-D92045858B26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2593BAB8-902F-4787-AA53-B3DED2C15CAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2593BAB8-902F-4787-AA53-B3DED2C15CAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2593BAB8-902F-4787-AA53-B3DED2C15CAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2593BAB8-902F-4787-AA53-B3DED2C15CAA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
