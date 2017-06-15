@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 
 using FurtherMath;
@@ -148,7 +149,7 @@ namespace FurtherMathTests
         /// The result.
         /// </param>
         [Theory]
-        [InlineData(1, 1, 50)]
+        [InlineData(1, 1, Math.PI / 4)]
         public void Arg(int real, int imaginary, double result)
         {
             Complex complex = new Complex(real, imaginary);
