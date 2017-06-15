@@ -1,3 +1,5 @@
+using System.Globalization;
+
 using FurtherMath;
 
 using Xunit;
@@ -18,7 +20,7 @@ namespace FurtherMathTests
             Complex firstComplex = new Complex(1, 1);
             Complex secondComplex = new Complex(2, 2);
             Complex thirdComplex = firstComplex + secondComplex;
-            Assert.Equal(thirdComplex.ToString(), "3+3i");
+            Assert.Equal("3+3i", thirdComplex.ToString());
         }
 
         /// <summary>
@@ -30,7 +32,7 @@ namespace FurtherMathTests
             Complex firstComplex = new Complex(3, 4);
             Complex secondComplex = new Complex(2, 2);
             Complex thirdComplex = firstComplex - secondComplex;
-            Assert.Equal(thirdComplex.ToString(), "1+2i");
+            Assert.Equal("1+2i", thirdComplex.ToString());
         }
 
         /// <summary>
@@ -59,7 +61,7 @@ namespace FurtherMathTests
             Complex firstComplex = new Complex(firstReal, firstImaginary);
             Complex secondComplex = new Complex(secondReal, secondImaginary);
             Complex thirdComplex = firstComplex * secondComplex;
-            Assert.Equal(thirdComplex.ToString(), result);
+            Assert.Equal(result, thirdComplex.ToString());
         }
 
         /// <summary>
@@ -81,15 +83,15 @@ namespace FurtherMathTests
         /// The result.
         /// </param>
         [Theory]
-        [InlineData(1, 1, 2, 2, "0,5")]
+        [InlineData(1, 1, 2, 2, "0.5")]
         [InlineData(2, 2, 1, 1, "2")]
-        [InlineData(5, 10, 4, 2, "2+1,5i")]
+        [InlineData(5, 10, 4, 2, "2+1.5i")]
         public void Division(int firstReal, int firstImaginary, int secondReal, int secondImaginary, string result)
         {
             Complex firstComplex = new Complex(firstReal, firstImaginary);
             Complex secondComplex = new Complex(secondReal, secondImaginary);
             Complex thirdComplex = firstComplex / secondComplex;
-            Assert.Equal(thirdComplex.ToString(), result);
+            Assert.Equal(result.Replace(".", CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator), thirdComplex.ToString());
         }
 
         /// <summary>
@@ -99,8 +101,8 @@ namespace FurtherMathTests
         public void Conjugate()
         {
             Complex complex = new Complex(5, 6);
-            Assert.Equal(Complex.Conjugate(complex).ToString(), "5-6i");
-            Assert.Equal(complex.Conjugate().ToString(), "5-6i");
+            Assert.Equal("5-6i", Complex.Conjugate(complex).ToString());
+            Assert.Equal("5-6i", complex.Conjugate().ToString());
         }
 
         /// <summary>
@@ -110,7 +112,47 @@ namespace FurtherMathTests
         public void ToMatrix()
         {
             Complex complex = new Complex(1, 2);
-            Assert.Equal(Complex.ToMatrix(complex).ToString(), "1 -2 \r\n2 1 \r\n");
+            Assert.Equal("1 -2\r\n2 1", Complex.ToMatrix(complex).ToString());
+        }
+
+        /// <summary>
+        /// The abs.
+        /// </summary>
+        /// <param name="real">
+        /// The real.
+        /// </param>
+        /// <param name="imaginary">
+        /// The imaginary.
+        /// </param>
+        /// <param name="result">
+        /// The result.
+        /// </param>
+        [Theory]
+        [InlineData(3, 4, 5)]
+        public void Abs(int real, int imaginary, double result)
+        {
+            Complex complex = new Complex(real, imaginary);
+            Assert.Equal(result, complex.Abs());
+        }
+
+        /// <summary>
+        /// The argument.
+        /// </summary>
+        /// <param name="real">
+        /// The real.
+        /// </param>
+        /// <param name="imaginary">
+        /// The imaginary.
+        /// </param>
+        /// <param name="result">
+        /// The result.
+        /// </param>
+        [Theory]
+        [InlineData(1, 1, 50)]
+        public void Arg(int real, int imaginary, double result)
+        {
+            Complex complex = new Complex(real, imaginary);
+            Assert.Equal(result, complex.Arg());
         }
 
         /// <summary>

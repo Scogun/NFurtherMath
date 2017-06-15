@@ -18,7 +18,7 @@ namespace FurtherMathTests
         public void String()
         {
             Matrix matrix = new Matrix(new List<double[]> { new double[] { 11, 12 }, new double[] { 21, 22 } });
-            Assert.Equal(matrix.ToString(), "11 12 \r\n21 22 \r\n");
+            Assert.Equal("11 12\r\n21 22", matrix.ToString());
         }
     }
 }

@@ -194,6 +194,34 @@ namespace FurtherMath
         }
 
         /// <summary>
+        /// The abs.
+        /// </summary>
+        /// <param name="complex">
+        /// The complex.
+        /// </param>
+        /// <returns>
+        /// The <see cref="double"/>.
+        /// </returns>
+        public static double Abs(Complex complex)
+        {
+            return Math.Sqrt(Math.Pow(complex.real, 2) + Math.Pow(complex.imaginary, 2));
+        }
+
+        /// <summary>
+        /// The argument.
+        /// </summary>
+        /// <param name="complex">
+        /// The complex.
+        /// </param>
+        /// <returns>
+        /// The <see cref="double"/>.
+        /// </returns>
+        public static double Arg(Complex complex)
+        {
+            return Math.Atan(complex.imaginary / complex.real);
+        }
+
+        /// <summary>
         /// The conjugate.
         /// </summary>
         /// <returns>
@@ -213,6 +241,28 @@ namespace FurtherMath
         public Matrix ToMatrix()
         {
             return ToMatrix(this);
+        }
+
+        /// <summary>
+        /// The abs.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="double"/>.
+        /// </returns>
+        public double Abs()
+        {
+            return Abs(this);
+        }
+
+        /// <summary>
+        /// The argument.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="double"/>.
+        /// </returns>
+        public double Arg()
+        {
+            return Arg(this);
         }
 
         /// <summary>Determines whether the specified object is equal to the current object.</summary>

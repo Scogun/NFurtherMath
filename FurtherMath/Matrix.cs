@@ -76,14 +76,25 @@ namespace FurtherMath
         public override string ToString()
         {
             StringBuilder builder = new StringBuilder();
-            for (int i = 0; i < structure.GetLength(0); i++)
-            {
-                for (int j = 0; j < structure.GetLength(1); j++)
+            int rowCount = this.structure.GetLength(0);
+            int colCount = this.structure.GetLength(1);
+            for (int i = 0; i < rowCount; i++)
+            {                
+                for (int j = 0; j < colCount; j++)
                 {
-                    builder.Append(structure[i, j]).Append(" ");
+                    builder.Append(structure[i, j]);
+                    if (j < colCount - 1)
+                    {
+                        builder.Append(" ");
+                    }
                 }
-                builder.Append("\r\n");
+
+                if (i < rowCount - 1)
+                {
+                    builder.Append("\r\n");
+                }
             }
+
             return builder.ToString();
         }
     }
