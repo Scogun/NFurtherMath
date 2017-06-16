@@ -157,6 +157,16 @@ namespace FurtherMathTests
         }
 
         /// <summary>
+        /// The trigonometric display.
+        /// </summary>
+        [Fact]
+        public void TrigonometricDisplay()
+        {
+            Complex complex = new Complex(3, 4);
+            Assert.Equal("5*(cos(0.927295218001612) + i*sin(0.927295218001612))".Replace(".", CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator), complex.ToString(ComplexDisplay.Trigonometric));
+        }
+
+        /// <summary>
         /// The equals.
         /// </summary>
         [Fact]
@@ -169,6 +179,20 @@ namespace FurtherMathTests
             Assert.True(firstComplex == relinkComplex);
             Assert.True(firstComplex == secondComplex);
             Assert.False(firstComplex != secondComplex);
+        }
+
+        /// <summary>
+        /// The properties.
+        /// </summary>
+        [Fact]
+        public void Properties()
+        {
+            Complex a = new Complex(1, 4);
+            Complex b = new Complex(2, 5);
+            Complex c = a + b;
+            Assert.Equal(a + b, b + a);
+            Assert.Equal(a * b, b * a);
+            Assert.Equal(a * (b + c), a * b + a * c);
         }
     }
 }

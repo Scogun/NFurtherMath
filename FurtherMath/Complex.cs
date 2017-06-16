@@ -5,6 +5,22 @@ using System.Text;
 namespace FurtherMath
 {
     /// <summary>
+    /// The complex display.
+    /// </summary>
+    public enum ComplexDisplay
+    {
+        /// <summary>
+        /// The algebraic.
+        /// </summary>
+        Algebraic,
+
+        /// <summary>
+        /// The trigonometric.
+        /// </summary>
+        Trigonometric
+    }
+
+    /// <summary>
     /// The complex number.
     /// </summary>
     public class Complex
@@ -33,6 +49,11 @@ namespace FurtherMath
             this.real = real;
             this.imaginary = imaginary;
         }
+
+        /// <summary>
+        /// The precision.
+        /// </summary>
+        internal static double Precision => 1 * Math.Pow(10, -15);
 
         /// <summary>
         /// The +.
@@ -277,7 +298,7 @@ namespace FurtherMath
                 return false;
             }
 
-            return real.Equals(secondComplex.real) && imaginary.Equals(secondComplex.imaginary);
+            return Math.Abs(real - secondComplex.real) < Precision && Math.Abs(imaginary - secondComplex.imaginary) < Precision;
         }
 
         /// <summary>Serves as the default hash function. </summary>
@@ -291,18 +312,40 @@ namespace FurtherMath
             }
         }
 
+        public string ToString(ComplexDisplay display)
+        {
+            switch (display)
+            {
+                case ComplexDisplay.Trigonometric:
+                    return TrigonometricDisplay();
+                default:
+                    return AlgebraicDisplay();
+            }
+        }
+
         /// <summary>Returns a string that represents the current object.</summary>
         /// <returns>A string that represents the current object.</returns>
         /// <filterpriority>2</filterpriority>
         public override string ToString()
         {
+            return AlgebraicDisplay();
+        }
+
+        /// <summary>
+        /// The algebraic display.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        private string AlgebraicDisplay()
+        {
             StringBuilder builder = new StringBuilder();
-            if (real != 0)
+            if (Math.Abs(real) > Precision)
             {
                 builder.Append(real);
             }
 
-            if (real != 0 && imaginary != 0)
+            if (Math.Abs(real) > Precision && Math.Abs(imaginary) > Precision)
             {
                 if (imaginary > 0)
                 {
@@ -310,12 +353,30 @@ namespace FurtherMath
                 }
             }
 
-            if (imaginary != 0)
+            if (Math.Abs(imaginary) > Precision)
             {
                 builder.Append($"{imaginary}i");
             }
 
             return builder.ToString();
+        }
+
+        /// <summary>
+        /// The algebraic display.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        private string TrigonometricDisplay()
+        {
+            double abs = Abs();
+            if (abs > Precision)
+            {
+                double arg = Arg();
+                return $"{abs}*(cos({arg}) + i*sin({arg}))";
+            }
+
+            return "0";
         }
     }
 }
