@@ -74,8 +74,10 @@ namespace FurtherMath
                     {
                         row[j] = this[i, j];
                     }
+
                     rows.Add(row);
                 }
+
                 return rows;
             }
         }
@@ -131,8 +133,10 @@ namespace FurtherMath
                 {
                     row[j] = firstMatrix[i, j] + secondMatrix[i, j];
                 }
+
                 data.Add(row);
             }
+
             return new Matrix(data);
         }
 
@@ -176,6 +180,7 @@ namespace FurtherMath
                     row[i] *= scalar;
                 }
             }
+
             return new Matrix(rows);
         }
 
@@ -225,9 +230,11 @@ namespace FurtherMath
                     {
                         sum += firstMatrix[i, k] * secondMatrix[k, j];
                     }
+
                     result[i, j] = sum;
                 }
             }
+
             return result;
         }
 
@@ -250,6 +257,7 @@ namespace FurtherMath
                 {
                     row[i] = matrix[i, j];
                 }
+
                 rows.Add(row);
             }
 
@@ -296,10 +304,13 @@ namespace FurtherMath
                     {
                         continue;
                     }
+
                     row[k++] = matrix[i, j];
                 }
+
                 rows.Add(row);
             }
+
             return new Matrix(rows);
         }
 
@@ -332,6 +343,7 @@ namespace FurtherMath
             {
                 result += Math.Pow(-1, i) * matrix[0, i] * matrix.Minor(0, i).Determinant();
             }
+
             return result;
         }
 
@@ -372,6 +384,7 @@ namespace FurtherMath
                     }
                 }
             }
+
             return result;
         }
 
@@ -429,6 +442,7 @@ namespace FurtherMath
                     result[i, j] = i == j ? 1 : 0;
                 }
             }
+
             return result;
         }
 

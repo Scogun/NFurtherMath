@@ -312,6 +312,15 @@ namespace FurtherMath
             }
         }
 
+        /// <summary>
+        /// The to string.
+        /// </summary>
+        /// <param name="display">
+        /// The display.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
         public string ToString(ComplexDisplay display)
         {
             switch (display)
