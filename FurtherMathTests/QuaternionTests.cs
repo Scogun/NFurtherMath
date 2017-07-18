@@ -40,6 +40,90 @@ namespace FurtherMathTests
         /// The result.
         /// </param>
         [Theory]
+        [InlineData(2, 3, 4, 5, 1, 1, 1, 1, "3+4i+5j+6k")]
+        [InlineData(2, 3, 4, 5, 6, 7, 8, 9, "8+10i+12j+14k")]
+        [InlineData(2, 1, 4, 0, 6, 7, 0, 9, "8+8i+4j+9k")]
+        public void Sum(double firstReal, double firstIImaginary, double firstJImaginary, double firstKImaginary, double secondReal, double secondIImaginary, double secondJImaginary, double secondKImaginary, string result)
+        {
+            Quaternion firstQuaternion = new Quaternion(firstReal, firstIImaginary, firstJImaginary, firstKImaginary);
+            Quaternion secondQuaternion = new Quaternion(secondReal, secondIImaginary, secondJImaginary, secondKImaginary);
+            Quaternion thirdQuaternion = firstQuaternion + secondQuaternion;
+            Assert.Equal(result, thirdQuaternion.ToString());
+        }
+
+        /// <summary>
+        /// The multiplication.
+        /// </summary>
+        /// <param name="firstReal">
+        /// The first Real.
+        /// </param>
+        /// <param name="firstIImaginary">
+        /// The first I Imaginary.
+        /// </param>
+        /// <param name="firstJImaginary">
+        /// The first J Imaginary.
+        /// </param>
+        /// <param name="firstKImaginary">
+        /// The first K Imaginary.
+        /// </param>
+        /// <param name="secondReal">
+        /// The second Real.
+        /// </param>
+        /// <param name="secondIImaginary">
+        /// The second I Imaginary.
+        /// </param>
+        /// <param name="secondJImaginary">
+        /// The second J Imaginary.
+        /// </param>
+        /// <param name="secondKImaginary">
+        /// The second K Imaginary.
+        /// </param>
+        /// <param name="result">
+        /// The result.
+        /// </param>
+        [Theory]
+        [InlineData(2, 3, 4, 5, 1, 1, 1, 1, "1+2i+3j+4k")]
+        [InlineData(2, 3, 4, 5, 6, 7, 8, 9, "-4-4i-4j-4k")]
+        [InlineData(2, 1, 4, 0, 6, 7, 0, 9, "-4-6i+4j-9k")]
+        public void Subtraction(double firstReal, double firstIImaginary, double firstJImaginary, double firstKImaginary, double secondReal, double secondIImaginary, double secondJImaginary, double secondKImaginary, string result)
+        {
+            Quaternion firstQuaternion = new Quaternion(firstReal, firstIImaginary, firstJImaginary, firstKImaginary);
+            Quaternion secondQuaternion = new Quaternion(secondReal, secondIImaginary, secondJImaginary, secondKImaginary);
+            Quaternion thirdQuaternion = firstQuaternion - secondQuaternion;
+            Assert.Equal(result, thirdQuaternion.ToString());
+        }
+
+        /// <summary>
+        /// The multiplication.
+        /// </summary>
+        /// <param name="firstReal">
+        /// The first Real.
+        /// </param>
+        /// <param name="firstIImaginary">
+        /// The first I Imaginary.
+        /// </param>
+        /// <param name="firstJImaginary">
+        /// The first J Imaginary.
+        /// </param>
+        /// <param name="firstKImaginary">
+        /// The first K Imaginary.
+        /// </param>
+        /// <param name="secondReal">
+        /// The second Real.
+        /// </param>
+        /// <param name="secondIImaginary">
+        /// The second I Imaginary.
+        /// </param>
+        /// <param name="secondJImaginary">
+        /// The second J Imaginary.
+        /// </param>
+        /// <param name="secondKImaginary">
+        /// The second K Imaginary.
+        /// </param>
+        /// <param name="result">
+        /// The result.
+        /// </param>
+        [Theory]
         [InlineData(2, 3, 4, 5, 1, 1, 1, 1, "-10+4i+8j+6k")]
         [InlineData(2, 3, 4, 5, 6, 7, 8, 9, "-86+28i+48j+44k")]
         [InlineData(2, 1, 4, 0, 6, 7, 0, 9, "5+56i+15j-10k")]
@@ -63,6 +147,16 @@ namespace FurtherMathTests
 
         /// <summary>
         /// The norm.
+        /// </summary>
+        [Fact]
+        public void Norm()
+        {
+            Quaternion quaternion = new Quaternion(2, 2, 2, 2);
+            Assert.Equal(16, quaternion.Norm());
+        }
+
+        /// <summary>
+        /// The absolut.
         /// </summary>
         [Fact]
         public void Abs()

@@ -58,6 +58,48 @@ namespace FurtherMath
         internal static double Precision => 1 * Math.Pow(10, -15);
 
         /// <summary>
+        /// The +.
+        /// </summary>
+        /// <param name="firstQuaternion">
+        /// The first quaternion.
+        /// </param>
+        /// <param name="secondQuaternion">
+        /// The second quaternion.
+        /// </param>
+        /// <returns>
+        /// The new quaternion.
+        /// </returns>
+        public static Quaternion operator +(Quaternion firstQuaternion, Quaternion secondQuaternion)
+        {
+            double newReal = firstQuaternion.real + secondQuaternion.real;
+            double newIImaginary = firstQuaternion.iImaginary + secondQuaternion.iImaginary;
+            double newJImaginary = firstQuaternion.jImaginary + secondQuaternion.jImaginary;
+            double newKImaginary = firstQuaternion.kImaginary + secondQuaternion.kImaginary;
+            return new Quaternion(newReal, newIImaginary, newJImaginary, newKImaginary);
+        }
+
+        /// <summary>
+        /// The -.
+        /// </summary>
+        /// <param name="firstQuaternion">
+        /// The first quaternion.
+        /// </param>
+        /// <param name="secondQuaternion">
+        /// The second quaternion.
+        /// </param>
+        /// <returns>
+        /// The new quaternion.
+        /// </returns>
+        public static Quaternion operator -(Quaternion firstQuaternion, Quaternion secondQuaternion)
+        {
+            double newReal = firstQuaternion.real - secondQuaternion.real;
+            double newIImaginary = firstQuaternion.iImaginary - secondQuaternion.iImaginary;
+            double newJImaginary = firstQuaternion.jImaginary - secondQuaternion.jImaginary;
+            double newKImaginary = firstQuaternion.kImaginary - secondQuaternion.kImaginary;
+            return new Quaternion(newReal, newIImaginary, newJImaginary, newKImaginary);
+        }
+
+        /// <summary>
         /// The *.
         /// </summary>
         /// <param name="firstQuaternion">
@@ -131,11 +173,24 @@ namespace FurtherMath
         /// <returns>
         /// The <see cref="double"/>.
         /// </returns>
+        public static double Norm(Quaternion quaternion)
+        {
+            return Math.Pow(quaternion.real, 2) + Math.Pow(quaternion.iImaginary, 2) + Math.Pow(quaternion.jImaginary, 2)
+                   + Math.Pow(quaternion.kImaginary, 2);
+        }
+
+        /// <summary>
+        /// The norm.
+        /// </summary>
+        /// <param name="quaternion">
+        /// The quaternion.
+        /// </param>
+        /// <returns>
+        /// The <see cref="double"/>.
+        /// </returns>
         public static double Abs(Quaternion quaternion)
         {
-            return Math.Sqrt(
-                Math.Pow(quaternion.real, 2) + Math.Pow(quaternion.iImaginary, 2) + Math.Pow(quaternion.jImaginary, 2)
-                + Math.Pow(quaternion.kImaginary, 2));
+            return Math.Sqrt(Norm(quaternion));
         }
 
         /// <summary>
@@ -173,6 +228,17 @@ namespace FurtherMath
         /// <returns>
         /// The <see cref="double"/>.
         /// </returns>
+        public double Norm()
+        {
+            return Norm(this);
+        }
+
+        /// <summary>
+        /// The norm.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="double"/>.
+        /// </returns>
         public double Abs()
         {
             return Abs(this);
@@ -200,10 +266,10 @@ namespace FurtherMath
                 return false;
             }
 
-            return Math.Abs(this.real - quaternion.real) < Precision
-                   && Math.Abs(this.iImaginary - quaternion.iImaginary) < Precision
-                   && Math.Abs(this.jImaginary - quaternion.jImaginary) < Precision
-                   && Math.Abs(this.kImaginary - quaternion.kImaginary) < Precision;
+            return Math.Abs(real - quaternion.real) < Precision
+                   && Math.Abs(iImaginary - quaternion.iImaginary) < Precision
+                   && Math.Abs(jImaginary - quaternion.jImaginary) < Precision
+                   && Math.Abs(kImaginary - quaternion.kImaginary) < Precision;
         }
 
         /// <summary>Serves as the default hash function. </summary>
@@ -212,10 +278,10 @@ namespace FurtherMath
         {
             unchecked
             {
-                var hashCode = this.real.GetHashCode();
-                hashCode = (hashCode * 397) ^ this.iImaginary.GetHashCode();
-                hashCode = (hashCode * 397) ^ this.jImaginary.GetHashCode();
-                hashCode = (hashCode * 397) ^ this.kImaginary.GetHashCode();
+                var hashCode = real.GetHashCode();
+                hashCode = (hashCode * 397) ^ iImaginary.GetHashCode();
+                hashCode = (hashCode * 397) ^ jImaginary.GetHashCode();
+                hashCode = (hashCode * 397) ^ kImaginary.GetHashCode();
                 return hashCode;
             }
         }
