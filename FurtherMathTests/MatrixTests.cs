@@ -2,55 +2,55 @@
 
 using FurtherMath;
 using FurtherMath.Exceptions;
-
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FurtherMathTests
 {
     /// <summary>
     /// The matrix tests.
     /// </summary>
+    [TestClass]
     public class MatrixTests
     {
         /// <summary>
         /// The to string.
         /// </summary>
-        [Fact]
+        [TestMethod]
         public void String()
         {
             Matrix matrix = new Matrix(new List<double[]> { new double[] { 11, 12 }, new double[] { 21, 22 } });
-            Assert.Equal("11 12\r\n21 22", matrix.ToString());
+            Assert.AreEqual("11 12\r\n21 22", matrix.ToString());
         }
 
         /// <summary>
         /// The sum.
         /// </summary>
-        [Fact]
+        [TestMethod]
         public void Sum()
         {
             Matrix firstMatrix = new Matrix(new List<double[]> { new double[] { 1, 2 }, new double[] { 3, 4 } });
             Matrix secondMatrix = new Matrix(new List<double[]> { new double[] { 4, 3 }, new double[] { 2, 1 } });
             Matrix sum = firstMatrix + secondMatrix;
-            Assert.Equal("5 5\r\n5 5", sum.ToString());
+            Assert.AreEqual("5 5\r\n5 5", sum.ToString());
             Matrix biggerMatrix = new Matrix(2, 3);
-            Assert.Throws<MatrixOperationException>(() => firstMatrix + biggerMatrix);
+            Assert.ThrowsException<MatrixOperationException>(() => firstMatrix + biggerMatrix);
         }
 
         /// <summary>
         /// The scalar multiplication.
         /// </summary>
-        [Fact]
+        [TestMethod]
         public void ScalarMultiplication()
         {
             Matrix matrix = new Matrix(new List<double[]> { new double[] { 1, 2 }, new double[] { 3, 4 } });
             Matrix result = 2 * matrix;
-            Assert.Equal("2 4\r\n6 8", result.ToString());
+            Assert.AreEqual("2 4\r\n6 8", result.ToString());
         }
 
         /// <summary>
         /// The multiplication.
         /// </summary>
-        [Fact]
+        [TestMethod]
         public void Multiplication()
         {
             Matrix firstMatrix = new Matrix(
@@ -62,55 +62,55 @@ namespace FurtherMathTests
                     });
             Matrix secondMatrix = new Matrix(new List<double[]> { new double[] { 1, 1 }, new double[] { 2, 0 } });
             Matrix sum = firstMatrix * secondMatrix;
-            Assert.Equal("-1 1\r\n2 2\r\n3 3", sum.ToString());
+            Assert.AreEqual("-1 1\r\n2 2\r\n3 3", sum.ToString());
             Matrix biggerMatrix = new Matrix(3, 2);
-            Assert.Throws<MatrixOperationException>(() => firstMatrix * biggerMatrix);
+            Assert.ThrowsException<MatrixOperationException>(() => firstMatrix * biggerMatrix);
         }
 
         /// <summary>
         /// The subtraction.
         /// </summary>
-        [Fact]
+        [TestMethod]
         public void Subtraction()
         {
             Matrix firstMatrix = new Matrix(new List<double[]> { new double[] { 5, 6 }, new double[] { 7, 8 } });
             Matrix secondMatrix = new Matrix(new List<double[]> { new double[] { 1, 2 }, new double[] { 3, 4 } });
             Matrix subtraction = firstMatrix - secondMatrix;
-            Assert.Equal("4 4\r\n4 4", subtraction.ToString());
+            Assert.AreEqual("4 4\r\n4 4", subtraction.ToString());
             Matrix biggerMatrix = new Matrix(2, 3);
-            Assert.Throws<MatrixOperationException>(() => firstMatrix - biggerMatrix);
+            Assert.ThrowsException<MatrixOperationException>(() => firstMatrix - biggerMatrix);
         }
 
         /// <summary>
         /// The transposition.
         /// </summary>
-        [Fact]
+        [TestMethod]
         public void Transposition()
         {
             Matrix matrix = new Matrix(new List<double[]> { new double[] { 1, 2, 3 }, new double[] { 4, 5, 6 } });
-            Assert.Equal("1 4\r\n2 5\r\n3 6", matrix.Transposition().ToString());
+            Assert.AreEqual("1 4\r\n2 5\r\n3 6", matrix.Transposition().ToString());
         }
 
         /// <summary>
         /// The minor.
         /// </summary>
-        [Fact]
+        [TestMethod]
         public void Minor()
         {
             Matrix matrix = new Matrix(new List<double[]> { new double[] { 1, 2, 3 }, new double[] { 4, 5, 6 } });
             Matrix minor = matrix.Minor(0, 0);
-            Assert.Equal("5 6", minor.ToString());
-            Assert.Throws<MatrixSizeException>(() => minor.Minor(0, 0));
+            Assert.AreEqual("5 6", minor.ToString());
+            Assert.ThrowsException<MatrixSizeException>(() => minor.Minor(0, 0));
         }
 
         /// <summary>
         /// The determinant.
         /// </summary>
-        [Fact]
+        [TestMethod]
         public void Determinant()
         {
             Matrix matrix = new Matrix(new List<double[]> { new double[] { 11, -2 }, new double[] { 7, 5 } });
-            Assert.Equal(69, matrix.Determinant());
+            Assert.AreEqual(69, matrix.Determinant());
             matrix = new Matrix(
                 new List<double[]>
                     {
@@ -118,7 +118,7 @@ namespace FurtherMathTests
                         new double[] { 4, 1, 3 },
                         new double[] { 1, -2, -2 }
                     });
-            Assert.Equal(54, matrix.Determinant());
+            Assert.AreEqual(54, matrix.Determinant());
             matrix = new Matrix(
                 new List<double[]>
                     {
@@ -127,76 +127,76 @@ namespace FurtherMathTests
                         new double[] { -5, 2, 3, 0 },
                         new double[] { 4, -1, 2, -3 }
                     });
-            Assert.Equal(-80, matrix.Determinant());
-            Assert.Throws<MatrixSizeException>(() => new Matrix(2, 3).Determinant());
+            Assert.AreEqual(-80, matrix.Determinant());
+            Assert.ThrowsException<MatrixSizeException>(() => new Matrix(2, 3).Determinant());
         }
 
         /// <summary>
         /// The adjugate.
         /// </summary>
-        [Fact]
+        [TestMethod]
         public void Adjugate()
         {
             Matrix matrix = new Matrix(new List<double[]> { new double[] { 1, 1 }, new double[] { 1, 2 } });
-            Assert.Equal("2 -1\r\n-1 1", matrix.Adjugate().ToString());
+            Assert.AreEqual("2 -1\r\n-1 1", matrix.Adjugate().ToString());
             matrix = new Matrix(new List<double[]>
                                     {
                                         new double[] { 1, 0, 2 },
                                         new double[] { 2, -1, 1 },
                                         new double[] { 1, 3, -1 }
                                     });
-            Assert.Equal("-2 3 7\r\n6 -3 -3\r\n2 3 -1", matrix.Adjugate().ToString());
+            Assert.AreEqual("-2 3 7\r\n6 -3 -3\r\n2 3 -1", matrix.Adjugate().ToString());
         }
 
         /// <summary>
         /// The inverted.
         /// </summary>
-        [Fact]
+        [TestMethod]
         public void Inverted()
         {
             Matrix matrix = new Matrix(new List<double[]> { new double[] { 1, 1 }, new double[] { 1, 2 } });
-            Assert.Equal("2 -1\r\n-1 1", matrix.Inverted().ToString());
+            Assert.AreEqual("2 -1\r\n-1 1", matrix.Inverted().ToString());
             matrix = new Matrix(new List<double[]>
                                     {
                                         new double[] { 1, 0, 2 },
                                         new double[] { 2, -1, 1 },
                                         new double[] { 1, 3, -1 }
                                     });
-            Assert.Equal(Matrix.MakeIdentity(3), matrix * matrix.Inverted());
+            Assert.AreEqual(Matrix.MakeIdentity(3), matrix * matrix.Inverted());
         }
 
         /// <summary>
         /// The equals.
         /// </summary>
-        [Fact]
+        [TestMethod]
         public void Equals()
         {
             Matrix firstMatrix = new Matrix(new List<double[]> { new double[] { 11, -2 }, new double[] { 7, 5 } });
             Matrix secondMatrix = new Matrix(new List<double[]> { new double[] { 11, -2 }, new double[] { 7, 5 } });
-            Assert.Equal(firstMatrix, secondMatrix);
+            Assert.AreEqual(firstMatrix, secondMatrix);
             secondMatrix[0, 0] = 10;
-            Assert.NotEqual(firstMatrix, secondMatrix);
+            Assert.AreNotEqual(firstMatrix, secondMatrix);
         }
 
         /// <summary>
         /// The properties.
         /// </summary>
-        [Fact]
+        [TestMethod]
         public void Properties()
         {
             Matrix a = new Matrix(new List<double[]> { new double[] { 1, 4 }, new double[] { 2, 3 } });
             Matrix b = new Matrix(new List<double[]> { new double[] { 4, 4 }, new double[] { 5, 2 } });
             Matrix c = a + b;
-            Assert.Equal(a + b + c, a + (b + c));
-            Assert.Equal(a + b, b + a);
-            Assert.Equal(a * b * c, a * (b * c));
-            Assert.NotEqual(a * b, b * a);
-            Assert.Equal(a * (b + c), a * b + a * c);
-            Assert.Equal(a, a.Transposition().Transposition());
-            Assert.Equal((a * b).Transposition(), b.Transposition() * a.Transposition());
-            Assert.Equal(a.Inverted().Transposition(), a.Transposition().Inverted());
-            Assert.Equal((a + b).Transposition(), a.Transposition() + b.Transposition());
-            Assert.Equal(a.Determinant(), a.Transposition().Determinant());
+            Assert.AreEqual(a + b + c, a + (b + c));
+            Assert.AreEqual(a + b, b + a);
+            Assert.AreEqual(a * b * c, a * (b * c));
+            Assert.AreNotEqual(a * b, b * a);
+            Assert.AreEqual(a * (b + c), a * b + a * c);
+            Assert.AreEqual(a, a.Transposition().Transposition());
+            Assert.AreEqual((a * b).Transposition(), b.Transposition() * a.Transposition());
+            Assert.AreEqual(a.Inverted().Transposition(), a.Transposition().Inverted());
+            Assert.AreEqual((a + b).Transposition(), a.Transposition() + b.Transposition());
+            Assert.AreEqual(a.Determinant(), a.Transposition().Determinant());
         }
     }
 }

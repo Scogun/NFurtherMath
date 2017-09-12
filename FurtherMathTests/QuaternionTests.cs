@@ -1,12 +1,12 @@
 ﻿using FurtherMath;
-
-using Xunit;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FurtherMathTests
 {
     /// <summary>
     /// The quaternion tests.
     /// </summary>
+    [TestClass]
     public class QuaternionTests
     {
         /// <summary>
@@ -39,16 +39,16 @@ namespace FurtherMathTests
         /// <param name="result">
         /// The result.
         /// </param>
-        [Theory]
-        [InlineData(2, 3, 4, 5, 1, 1, 1, 1, "3+4i+5j+6k")]
-        [InlineData(2, 3, 4, 5, 6, 7, 8, 9, "8+10i+12j+14k")]
-        [InlineData(2, 1, 4, 0, 6, 7, 0, 9, "8+8i+4j+9k")]
+        [DataTestMethod]
+        [DataRow(2, 3, 4, 5, 1, 1, 1, 1, "3+4i+5j+6k")]
+        [DataRow(2, 3, 4, 5, 6, 7, 8, 9, "8+10i+12j+14k")]
+        [DataRow(2, 1, 4, 0, 6, 7, 0, 9, "8+8i+4j+9k")]
         public void Sum(double firstReal, double firstIImaginary, double firstJImaginary, double firstKImaginary, double secondReal, double secondIImaginary, double secondJImaginary, double secondKImaginary, string result)
         {
             Quaternion firstQuaternion = new Quaternion(firstReal, firstIImaginary, firstJImaginary, firstKImaginary);
             Quaternion secondQuaternion = new Quaternion(secondReal, secondIImaginary, secondJImaginary, secondKImaginary);
             Quaternion thirdQuaternion = firstQuaternion + secondQuaternion;
-            Assert.Equal(result, thirdQuaternion.ToString());
+            Assert.AreEqual(result, thirdQuaternion.ToString());
         }
 
         /// <summary>
@@ -81,16 +81,16 @@ namespace FurtherMathTests
         /// <param name="result">
         /// The result.
         /// </param>
-        [Theory]
-        [InlineData(2, 3, 4, 5, 1, 1, 1, 1, "1+2i+3j+4k")]
-        [InlineData(2, 3, 4, 5, 6, 7, 8, 9, "-4-4i-4j-4k")]
-        [InlineData(2, 1, 4, 0, 6, 7, 0, 9, "-4-6i+4j-9k")]
+        [DataTestMethod]
+        [DataRow(2, 3, 4, 5, 1, 1, 1, 1, "1+2i+3j+4k")]
+        [DataRow(2, 3, 4, 5, 6, 7, 8, 9, "-4-4i-4j-4k")]
+        [DataRow(2, 1, 4, 0, 6, 7, 0, 9, "-4-6i+4j-9k")]
         public void Subtraction(double firstReal, double firstIImaginary, double firstJImaginary, double firstKImaginary, double secondReal, double secondIImaginary, double secondJImaginary, double secondKImaginary, string result)
         {
             Quaternion firstQuaternion = new Quaternion(firstReal, firstIImaginary, firstJImaginary, firstKImaginary);
             Quaternion secondQuaternion = new Quaternion(secondReal, secondIImaginary, secondJImaginary, secondKImaginary);
             Quaternion thirdQuaternion = firstQuaternion - secondQuaternion;
-            Assert.Equal(result, thirdQuaternion.ToString());
+            Assert.AreEqual(result, thirdQuaternion.ToString());
         }
 
         /// <summary>
@@ -123,57 +123,57 @@ namespace FurtherMathTests
         /// <param name="result">
         /// The result.
         /// </param>
-        [Theory]
-        [InlineData(2, 3, 4, 5, 1, 1, 1, 1, "-10+4i+8j+6k")]
-        [InlineData(2, 3, 4, 5, 6, 7, 8, 9, "-86+28i+48j+44k")]
-        [InlineData(2, 1, 4, 0, 6, 7, 0, 9, "5+56i+15j-10k")]
+        [DataTestMethod]
+        [DataRow(2, 3, 4, 5, 1, 1, 1, 1, "-10+4i+8j+6k")]
+        [DataRow(2, 3, 4, 5, 6, 7, 8, 9, "-86+28i+48j+44k")]
+        [DataRow(2, 1, 4, 0, 6, 7, 0, 9, "5+56i+15j-10k")]
         public void Multiplication(double firstReal, double firstIImaginary, double firstJImaginary, double firstKImaginary, double secondReal, double secondIImaginary, double secondJImaginary, double secondKImaginary, string result)
         {
             Quaternion firstQuaternion = new Quaternion(firstReal, firstIImaginary, firstJImaginary, firstKImaginary);
             Quaternion secondQuaternion = new Quaternion(secondReal, secondIImaginary, secondJImaginary, secondKImaginary);
             Quaternion thirdQuaternion = firstQuaternion * secondQuaternion;
-            Assert.Equal(result, thirdQuaternion.ToString());
+            Assert.AreEqual(result, thirdQuaternion.ToString());
         }
 
         /// <summary>
         /// The to matrix.
         /// </summary>
-        [Fact]
+        [TestMethod]
         public void ToMatrix()
         {
             Quaternion quaternion = new Quaternion(1, 2, 3, 4);
-            Assert.Equal("1 -2 -3 -4\r\n2 1 -4 3\r\n3 4 1 -2\r\n4 -3 2 1", quaternion.ToMatrix().ToString());
+            Assert.AreEqual("1 -2 -3 -4\r\n2 1 -4 3\r\n3 4 1 -2\r\n4 -3 2 1", quaternion.ToMatrix().ToString());
         }
 
         /// <summary>
         /// The norm.
         /// </summary>
-        [Fact]
+        [TestMethod]
         public void Norm()
         {
             Quaternion quaternion = new Quaternion(2, 2, 2, 2);
-            Assert.Equal(16, quaternion.Norm());
+            Assert.AreEqual(16, quaternion.Norm());
         }
 
         /// <summary>
         /// The absolut.
         /// </summary>
-        [Fact]
+        [TestMethod]
         public void Abs()
         {
             Quaternion quaternion = new Quaternion(2, 2, 2, 2);
-            Assert.Equal(4, quaternion.Abs());
+            Assert.AreEqual(4, quaternion.Abs());
         }
 
         /// <summary>
         /// The operations.
         /// </summary>
-        [Fact]
+        [TestMethod]
         public void Operations()
         {
             Quaternion firstQuaternion = new Quaternion(2, 3, 4, 5);
             Quaternion secondQuaternion = new Quaternion(6, 7, 8, 9);
-            Assert.Equal(
+            Assert.AreEqual(
                 (firstQuaternion * secondQuaternion).Conjugate(),
                 secondQuaternion.Conjugate() * firstQuaternion.Conjugate());
         }
