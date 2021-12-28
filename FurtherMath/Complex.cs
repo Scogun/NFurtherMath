@@ -73,6 +73,23 @@ namespace FurtherMath
         }
 
         /// <summary>
+        /// The +.
+        /// </summary>
+        /// <param name="number">
+        /// The number.
+        /// </param>
+        /// <param name="complex">
+        /// The complex.
+        /// </param>
+        /// <returns>
+        /// The sum.
+        /// </returns>
+        public static Complex operator +(double number, Complex complex)
+        {
+            return new Complex(complex.real + number, complex.imaginary);
+        }
+
+        /// <summary>
         /// The -.
         /// </summary>
         /// <param name="firstComplex">
@@ -87,6 +104,23 @@ namespace FurtherMath
         public static Complex operator -(Complex firstComplex, Complex secondComplex)
         {
             return new Complex(firstComplex.real - secondComplex.real, firstComplex.imaginary - secondComplex.imaginary);
+        }
+
+        /// <summary>
+        /// The -.
+        /// </summary>
+        /// <param name="number">
+        /// The number.
+        /// </param>
+        /// <param name="complex">
+        /// The complex.
+        /// </param>
+        /// <returns>
+        /// The subtraction.
+        /// </returns>
+        public static Complex operator -(double number, Complex complex)
+        {
+            return new Complex(number - complex.real, -complex.imaginary);
         }
 
         /// <summary>
@@ -135,6 +169,23 @@ namespace FurtherMath
             double imaginaryPartDenominator = realPartDenominator;
             double imaginaryPart = imaginaryPartNumerator / imaginaryPartDenominator;
             return new Complex(realPart, imaginaryPart);
+        }
+
+        /// <summary>
+        /// The /.
+        /// </summary>
+        /// <param name="complex">
+        /// The complex.
+        /// </param>
+        /// <param name="number">
+        /// The number.
+        /// </param>
+        /// <returns>
+        /// The division.
+        /// </returns>
+        public static Complex operator /(Complex complex, double number)
+        {
+            return new Complex(complex.real / number, complex.imaginary / number);
         }
 
         /// <summary>
