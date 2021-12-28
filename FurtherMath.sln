@@ -1,11 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.6
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FurtherMath", "FurtherMath\FurtherMath.csproj", "{2E73F547-A95B-486D-8CC0-D92045858B26}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FurtherMath", "FurtherMath\FurtherMath.csproj", "{2E73F547-A95B-486D-8CC0-D92045858B26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FurtherMathTests", "FurtherMathTests\FurtherMathTests.csproj", "{2593BAB8-902F-4787-AA53-B3DED2C15CAA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FurtherMathTests", "FurtherMathTests\FurtherMathTests.csproj", "{2593BAB8-902F-4787-AA53-B3DED2C15CAA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FurtherMath.Calculations", "FurtherMath.Calculations\FurtherMath.Calculations.csproj", "{38AE7D7C-96B6-493B-9A69-F10E143F7064}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FurtherMath.Calculations.Tests", "FurtherMath.Calculations.Tests\FurtherMath.Calculations.Tests.csproj", "{E6B52E95-536E-478C-B25F-6B7BB7CDA614}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +25,19 @@ Global
 		{2593BAB8-902F-4787-AA53-B3DED2C15CAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2593BAB8-902F-4787-AA53-B3DED2C15CAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2593BAB8-902F-4787-AA53-B3DED2C15CAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38AE7D7C-96B6-493B-9A69-F10E143F7064}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38AE7D7C-96B6-493B-9A69-F10E143F7064}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38AE7D7C-96B6-493B-9A69-F10E143F7064}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38AE7D7C-96B6-493B-9A69-F10E143F7064}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6B52E95-536E-478C-B25F-6B7BB7CDA614}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6B52E95-536E-478C-B25F-6B7BB7CDA614}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6B52E95-536E-478C-B25F-6B7BB7CDA614}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6B52E95-536E-478C-B25F-6B7BB7CDA614}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {65326D56-C4D5-4812-82F1-95E07A913C8A}
 	EndGlobalSection
 EndGlobal
