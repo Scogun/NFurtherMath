@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace FurtherMath.Calculations
 {
@@ -11,6 +12,14 @@ namespace FurtherMath.Calculations
 
         private readonly double c;
 
+        private static readonly Regex QuadraticCoefficient = new Regex("((?:^|[-+])\\d*)x\\^2", RegexOptions.Compiled);
+
+        private static readonly Regex LinearCoefficient = new Regex("((?:^|[-+])\\d*)x(?!\\^2)", RegexOptions.Compiled);
+
+        private static readonly Regex RestCoefficient = new Regex("((?:^|[-+])\\d+)(?!x)", RegexOptions.Compiled);
+
+        private static readonly Regex[] CoefficientRegexs = { QuadraticCoefficient, LinearCoefficient, RestCoefficient };
+
         public QuadraticEquation(double a, double b, double c)
         {
             this.a = a;
@@ -18,7 +27,27 @@ namespace FurtherMath.Calculations
             this.c = c;
         }
 
+        private QuadraticEquation(double[] coefficients) : this(coefficients[0], coefficients[1], coefficients[2])
+        {
+        }
+
         public double Discriminant => Math.Pow(b, 2) - 4 * a * c;
+
+        public static QuadraticEquation Parse(string equation)
+        {
+            var coefficients = new double[3];
+
+            for (int i = 0; i < coefficients.Length; i++)
+            {
+                var match = CoefficientRegexs[i].Match(equation);
+                if (match.Success)
+                {
+                    coefficients[i] = ParseCoefficient(match.Groups[1].Value);
+                }
+            }
+
+            return new QuadraticEquation(coefficients);
+        }
 
         public QuadraticEquationRoots Solution()
         {
@@ -65,12 +94,12 @@ namespace FurtherMath.Calculations
 
             if (b != 0)
             {
-                builder.Append("x");
+                builder.Append('x');
             }
 
             if (c > 0)
             {
-                builder.Append("+");
+                builder.Append('+');
             }
 
             if (c != 0)
@@ -81,6 +110,21 @@ namespace FurtherMath.Calculations
             builder.Append("=0");
 
             return builder.ToString();
+        }
+
+        private static double ParseCoefficient(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return 1;
+            }
+
+            return value switch
+            {
+                "+" => 1,
+                "-" => -1,
+                _ => Convert.ToDouble(value)
+            };
         }
     }
 }

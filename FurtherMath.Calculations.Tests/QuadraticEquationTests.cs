@@ -32,5 +32,19 @@ namespace FurtherMath.Calculations.Tests
             solution.ComplexRoots.FirstRoot.Should().Be(new Complex(firstReal, firstImaginary));
             solution.ComplexRoots.SecondRoot.Should().Be(new Complex(secondReal, secondImaginary));
         }
+
+        [DataTestMethod]
+        [DataRow("x^2-49=0")]
+        [DataRow("x^2-8x+12=0")]
+        [DataRow("-x^2-2x+15=0")]
+        [DataRow("x^2-6x+9=0")]
+        [DataRow("x^2-6x+13=0")]
+        [DataRow("x^2-x+13=0")]
+        [DataRow("x^2-x=0")]
+        [DataRow("2x^2+x=0")]
+        public void ParseQuadraticEquations(string equation)
+        {
+            QuadraticEquation.Parse(equation).ToString().Should().Be(equation);
+        }
     }
 }
