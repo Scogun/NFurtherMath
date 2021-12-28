@@ -105,9 +105,9 @@ namespace FurtherMath
         {
             double realMultiplication = firstComplex.real * secondComplex.real;
             double imaginaryMultiplication = firstComplex.imaginary * secondComplex.imaginary;
-            double firstCrosMultiplication = firstComplex.real * secondComplex.imaginary;
-            double secondCrosMultiplication = firstComplex.imaginary * secondComplex.real;
-            return new Complex(realMultiplication - imaginaryMultiplication, firstCrosMultiplication + secondCrosMultiplication);
+            double firstCrossMultiplication = firstComplex.real * secondComplex.imaginary;
+            double secondCrossMultiplication = firstComplex.imaginary * secondComplex.real;
+            return new Complex(realMultiplication - imaginaryMultiplication, firstCrossMultiplication + secondCrossMultiplication);
         }
 
         /// <summary>
@@ -127,13 +127,13 @@ namespace FurtherMath
             double realMultiplication = firstComplex.real * secondComplex.real;
             double imaginaryMultiplication = firstComplex.imaginary * secondComplex.imaginary;
             double realPartNumerator = realMultiplication + imaginaryMultiplication;
-            double realPartDenaminator = Math.Pow(secondComplex.real, 2) + Math.Pow(secondComplex.imaginary, 2);
-            double realPart = realPartNumerator / realPartDenaminator;
-            double firstCrosMultiplication = firstComplex.imaginary * secondComplex.real;
-            double secondCrosMultiplication = firstComplex.real * secondComplex.imaginary;
-            double imaginaryPartNumerator = firstCrosMultiplication - secondCrosMultiplication;
-            double imaginaryPartDenaminator = realPartDenaminator;
-            double imaginaryPart = imaginaryPartNumerator / imaginaryPartDenaminator;
+            double realPartDenominator = Math.Pow(secondComplex.real, 2) + Math.Pow(secondComplex.imaginary, 2);
+            double realPart = realPartNumerator / realPartDenominator;
+            double firstCrossMultiplication = firstComplex.imaginary * secondComplex.real;
+            double secondCrossMultiplication = firstComplex.real * secondComplex.imaginary;
+            double imaginaryPartNumerator = firstCrossMultiplication - secondCrossMultiplication;
+            double imaginaryPartDenominator = realPartDenominator;
+            double imaginaryPart = imaginaryPartNumerator / imaginaryPartDenominator;
             return new Complex(realPart, imaginaryPart);
         }
 
@@ -174,7 +174,7 @@ namespace FurtherMath
         /// The second complex.
         /// </param>
         /// <returns>
-        /// The unequalled.
+        /// The unequaled.
         /// </returns>
         public static bool operator !=(Complex firstComplex, Complex secondComplex)
         {

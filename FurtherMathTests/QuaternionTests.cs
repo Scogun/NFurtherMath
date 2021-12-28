@@ -156,7 +156,7 @@ namespace FurtherMathTests
         }
 
         /// <summary>
-        /// The absolut.
+        /// The absolute.
         /// </summary>
         [TestMethod]
         public void Abs()
