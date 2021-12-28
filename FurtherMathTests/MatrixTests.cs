@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using FluentAssertions;
 using FurtherMath;
 using FurtherMath.Exceptions;
@@ -34,8 +33,7 @@ namespace FurtherMathTests
             Matrix sum = firstMatrix + secondMatrix;
             sum.ToString().Should().Be("5 5\r\n5 5");
             Matrix biggerMatrix = new Matrix(2, 3);
-            Func<Matrix> func = () => firstMatrix + biggerMatrix;
-            func.Should().Throw<MatrixOperationException>();
+            Assert.ThrowsException<MatrixOperationException>(() => firstMatrix + biggerMatrix);
         }
 
         /// <summary>
@@ -66,8 +64,7 @@ namespace FurtherMathTests
             Matrix sum = firstMatrix * secondMatrix;
             sum.ToString().Should().Be("-1 1\r\n2 2\r\n3 3");
             Matrix biggerMatrix = new Matrix(3, 2);
-            Func<Matrix> func = () => firstMatrix * biggerMatrix;
-            func.Should().Throw<MatrixOperationException>();
+            Assert.ThrowsException<MatrixOperationException>(() => firstMatrix * biggerMatrix);
         }
 
         /// <summary>
@@ -81,8 +78,7 @@ namespace FurtherMathTests
             Matrix subtraction = firstMatrix - secondMatrix;
             subtraction.ToString().Should().Be("4 4\r\n4 4");
             Matrix biggerMatrix = new Matrix(2, 3);
-            Func<Matrix> func = () => firstMatrix - biggerMatrix;
-            func.Should().Throw<MatrixOperationException>();
+            Assert.ThrowsException<MatrixOperationException>(() => firstMatrix - biggerMatrix);
         }
 
         /// <summary>
@@ -104,8 +100,7 @@ namespace FurtherMathTests
             Matrix matrix = new Matrix(new List<double[]> { new double[] { 1, 2, 3 }, new double[] { 4, 5, 6 } });
             Matrix minor = matrix.Minor(0, 0);
             minor.ToString().Should().Be("5 6");
-            Func<Matrix> func = () => minor.Minor(0, 0);
-            func.Should().Throw<MatrixSizeException>();
+            Assert.ThrowsException<MatrixSizeException>(() => minor.Minor(0, 0));
         }
 
         /// <summary>
@@ -133,8 +128,7 @@ namespace FurtherMathTests
                         new double[] { 4, -1, 2, -3 }
                     });
             matrix.Determinant().Should().Be(-80);
-            Func<double> func = () => new Matrix(2, 3).Determinant();
-            func.Should().Throw<MatrixSizeException>();
+            Assert.ThrowsException<MatrixSizeException>(() => new Matrix(2, 3).Determinant());
         }
 
         /// <summary>
