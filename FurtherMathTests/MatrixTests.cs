@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-
+﻿using System;
+using System.Collections.Generic;
+using FluentAssertions;
 using FurtherMath;
 using FurtherMath.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,7 +20,7 @@ namespace FurtherMathTests
         public void String()
         {
             Matrix matrix = new Matrix(new List<double[]> { new double[] { 11, 12 }, new double[] { 21, 22 } });
-            Assert.AreEqual("11 12\r\n21 22", matrix.ToString());
+            matrix.ToString().Should().Be("11 12\r\n21 22");
         }
 
         /// <summary>
@@ -31,9 +32,10 @@ namespace FurtherMathTests
             Matrix firstMatrix = new Matrix(new List<double[]> { new double[] { 1, 2 }, new double[] { 3, 4 } });
             Matrix secondMatrix = new Matrix(new List<double[]> { new double[] { 4, 3 }, new double[] { 2, 1 } });
             Matrix sum = firstMatrix + secondMatrix;
-            Assert.AreEqual("5 5\r\n5 5", sum.ToString());
+            sum.ToString().Should().Be("5 5\r\n5 5");
             Matrix biggerMatrix = new Matrix(2, 3);
-            Assert.ThrowsException<MatrixOperationException>(() => firstMatrix + biggerMatrix);
+            Func<Matrix> func = () => firstMatrix + biggerMatrix;
+            func.Should().Throw<MatrixOperationException>();
         }
 
         /// <summary>
@@ -44,7 +46,7 @@ namespace FurtherMathTests
         {
             Matrix matrix = new Matrix(new List<double[]> { new double[] { 1, 2 }, new double[] { 3, 4 } });
             Matrix result = 2 * matrix;
-            Assert.AreEqual("2 4\r\n6 8", result.ToString());
+            result.ToString().Should().Be("2 4\r\n6 8");
         }
 
         /// <summary>
@@ -62,9 +64,10 @@ namespace FurtherMathTests
                     });
             Matrix secondMatrix = new Matrix(new List<double[]> { new double[] { 1, 1 }, new double[] { 2, 0 } });
             Matrix sum = firstMatrix * secondMatrix;
-            Assert.AreEqual("-1 1\r\n2 2\r\n3 3", sum.ToString());
+            sum.ToString().Should().Be("-1 1\r\n2 2\r\n3 3");
             Matrix biggerMatrix = new Matrix(3, 2);
-            Assert.ThrowsException<MatrixOperationException>(() => firstMatrix * biggerMatrix);
+            Func<Matrix> func = () => firstMatrix * biggerMatrix;
+            func.Should().Throw<MatrixOperationException>();
         }
 
         /// <summary>
@@ -76,9 +79,10 @@ namespace FurtherMathTests
             Matrix firstMatrix = new Matrix(new List<double[]> { new double[] { 5, 6 }, new double[] { 7, 8 } });
             Matrix secondMatrix = new Matrix(new List<double[]> { new double[] { 1, 2 }, new double[] { 3, 4 } });
             Matrix subtraction = firstMatrix - secondMatrix;
-            Assert.AreEqual("4 4\r\n4 4", subtraction.ToString());
+            subtraction.ToString().Should().Be("4 4\r\n4 4");
             Matrix biggerMatrix = new Matrix(2, 3);
-            Assert.ThrowsException<MatrixOperationException>(() => firstMatrix - biggerMatrix);
+            Func<Matrix> func = () => firstMatrix - biggerMatrix;
+            func.Should().Throw<MatrixOperationException>();
         }
 
         /// <summary>
@@ -88,7 +92,7 @@ namespace FurtherMathTests
         public void Transposition()
         {
             Matrix matrix = new Matrix(new List<double[]> { new double[] { 1, 2, 3 }, new double[] { 4, 5, 6 } });
-            Assert.AreEqual("1 4\r\n2 5\r\n3 6", matrix.Transposition().ToString());
+            matrix.Transposition().ToString().Should().Be("1 4\r\n2 5\r\n3 6");
         }
 
         /// <summary>
@@ -99,8 +103,9 @@ namespace FurtherMathTests
         {
             Matrix matrix = new Matrix(new List<double[]> { new double[] { 1, 2, 3 }, new double[] { 4, 5, 6 } });
             Matrix minor = matrix.Minor(0, 0);
-            Assert.AreEqual("5 6", minor.ToString());
-            Assert.ThrowsException<MatrixSizeException>(() => minor.Minor(0, 0));
+            minor.ToString().Should().Be("5 6");
+            Func<Matrix> func = () => minor.Minor(0, 0);
+            func.Should().Throw<MatrixSizeException>();
         }
 
         /// <summary>
@@ -110,7 +115,7 @@ namespace FurtherMathTests
         public void Determinant()
         {
             Matrix matrix = new Matrix(new List<double[]> { new double[] { 11, -2 }, new double[] { 7, 5 } });
-            Assert.AreEqual(69, matrix.Determinant());
+            matrix.Determinant().Should().Be(69);
             matrix = new Matrix(
                 new List<double[]>
                     {
@@ -118,7 +123,7 @@ namespace FurtherMathTests
                         new double[] { 4, 1, 3 },
                         new double[] { 1, -2, -2 }
                     });
-            Assert.AreEqual(54, matrix.Determinant());
+            matrix.Determinant().Should().Be(54);
             matrix = new Matrix(
                 new List<double[]>
                     {
@@ -127,8 +132,9 @@ namespace FurtherMathTests
                         new double[] { -5, 2, 3, 0 },
                         new double[] { 4, -1, 2, -3 }
                     });
-            Assert.AreEqual(-80, matrix.Determinant());
-            Assert.ThrowsException<MatrixSizeException>(() => new Matrix(2, 3).Determinant());
+            matrix.Determinant().Should().Be(-80);
+            Func<double> func = () => new Matrix(2, 3).Determinant();
+            func.Should().Throw<MatrixSizeException>();
         }
 
         /// <summary>
@@ -138,14 +144,14 @@ namespace FurtherMathTests
         public void Adjugate()
         {
             Matrix matrix = new Matrix(new List<double[]> { new double[] { 1, 1 }, new double[] { 1, 2 } });
-            Assert.AreEqual("2 -1\r\n-1 1", matrix.Adjugate().ToString());
+            matrix.Adjugate().ToString().Should().Be("2 -1\r\n-1 1");
             matrix = new Matrix(new List<double[]>
                                     {
                                         new double[] { 1, 0, 2 },
                                         new double[] { 2, -1, 1 },
                                         new double[] { 1, 3, -1 }
                                     });
-            Assert.AreEqual("-2 3 7\r\n6 -3 -3\r\n2 3 -1", matrix.Adjugate().ToString());
+            matrix.Adjugate().ToString().Should().Be("-2 3 7\r\n6 -3 -3\r\n2 3 -1");
         }
 
         /// <summary>
@@ -155,14 +161,14 @@ namespace FurtherMathTests
         public void Inverted()
         {
             Matrix matrix = new Matrix(new List<double[]> { new double[] { 1, 1 }, new double[] { 1, 2 } });
-            Assert.AreEqual("2 -1\r\n-1 1", matrix.Inverted().ToString());
+            matrix.Inverted().ToString().Should().Be("2 -1\r\n-1 1");
             matrix = new Matrix(new List<double[]>
                                     {
                                         new double[] { 1, 0, 2 },
                                         new double[] { 2, -1, 1 },
                                         new double[] { 1, 3, -1 }
                                     });
-            Assert.AreEqual(Matrix.MakeIdentity(3), matrix * matrix.Inverted());
+            (matrix * matrix.Inverted()).Should().Be(Matrix.MakeIdentity(3));
         }
 
         /// <summary>
@@ -173,9 +179,9 @@ namespace FurtherMathTests
         {
             Matrix firstMatrix = new Matrix(new List<double[]> { new double[] { 11, -2 }, new double[] { 7, 5 } });
             Matrix secondMatrix = new Matrix(new List<double[]> { new double[] { 11, -2 }, new double[] { 7, 5 } });
-            Assert.AreEqual(firstMatrix, secondMatrix);
+            firstMatrix.Should().Be(secondMatrix);
             secondMatrix[0, 0] = 10;
-            Assert.AreNotEqual(firstMatrix, secondMatrix);
+            firstMatrix.Should().NotBe(secondMatrix);
         }
 
         /// <summary>
@@ -187,16 +193,16 @@ namespace FurtherMathTests
             Matrix a = new Matrix(new List<double[]> { new double[] { 1, 4 }, new double[] { 2, 3 } });
             Matrix b = new Matrix(new List<double[]> { new double[] { 4, 4 }, new double[] { 5, 2 } });
             Matrix c = a + b;
-            Assert.AreEqual(a + b + c, a + (b + c));
-            Assert.AreEqual(a + b, b + a);
-            Assert.AreEqual(a * b * c, a * (b * c));
-            Assert.AreNotEqual(a * b, b * a);
-            Assert.AreEqual(a * (b + c), a * b + a * c);
-            Assert.AreEqual(a, a.Transposition().Transposition());
-            Assert.AreEqual((a * b).Transposition(), b.Transposition() * a.Transposition());
-            Assert.AreEqual(a.Inverted().Transposition(), a.Transposition().Inverted());
-            Assert.AreEqual((a + b).Transposition(), a.Transposition() + b.Transposition());
-            Assert.AreEqual(a.Determinant(), a.Transposition().Determinant());
+            (a + b + c).Should().Be(a + (b + c));
+            (a + b).Should().Be(b + a);
+            (a * b * c).Should().Be(a * (b * c));
+            (a * b).Should().NotBe(b * a);
+            (a * (b + c)).Should().Be(a * b + a * c);
+            a.Transposition().Transposition().Should().Be(a);
+            (a * b).Transposition().Should().Be(b.Transposition() * a.Transposition());
+            a.Inverted().Transposition().Should().Be(a.Transposition().Inverted());
+            (a + b).Transposition().Should().Be(a.Transposition() + b.Transposition());
+            a.Determinant().Should().Be(a.Transposition().Determinant());
         }
     }
 }

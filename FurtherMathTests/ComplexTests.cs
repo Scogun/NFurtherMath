@@ -1,6 +1,6 @@
 using System;
 using System.Globalization;
-
+using FluentAssertions;
 using FurtherMath;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -21,7 +21,7 @@ namespace FurtherMathTests
             Complex firstComplex = new Complex(1, 1);
             Complex secondComplex = new Complex(2, 2);
             Complex thirdComplex = firstComplex + secondComplex;
-            Assert.AreEqual("3+3i", thirdComplex.ToString());
+            thirdComplex.ToString().Should().Be("3+3i");
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace FurtherMathTests
             Complex firstComplex = new Complex(3, 4);
             Complex secondComplex = new Complex(2, 2);
             Complex thirdComplex = firstComplex - secondComplex;
-            Assert.AreEqual("1+2i", thirdComplex.ToString());
+            thirdComplex.ToString().Should().Be("1+2i");
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace FurtherMathTests
             Complex firstComplex = new Complex(firstReal, firstImaginary);
             Complex secondComplex = new Complex(secondReal, secondImaginary);
             Complex thirdComplex = firstComplex * secondComplex;
-            Assert.AreEqual(result, thirdComplex.ToString());
+            thirdComplex.ToString().Should().Be(result);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace FurtherMathTests
             Complex firstComplex = new Complex(firstReal, firstImaginary);
             Complex secondComplex = new Complex(secondReal, secondImaginary);
             Complex thirdComplex = firstComplex / secondComplex;
-            Assert.AreEqual(result.Replace(".", CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator), thirdComplex.ToString());
+            thirdComplex.ToString().Should().Be(result.Replace(".", CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator));
         }
 
         /// <summary>
@@ -102,8 +102,8 @@ namespace FurtherMathTests
         public void Conjugate()
         {
             Complex complex = new Complex(5, 6);
-            Assert.AreEqual("5-6i", Complex.Conjugate(complex).ToString());
-            Assert.AreEqual("5-6i", complex.Conjugate().ToString());
+            Complex.Conjugate(complex).ToString().Should().Be("5-6i");
+            complex.Conjugate().ToString().Should().Be("5-6i");
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace FurtherMathTests
         public void ToMatrix()
         {
             Complex complex = new Complex(1, 2);
-            Assert.AreEqual("1 -2\r\n2 1", Complex.ToMatrix(complex).ToString());
+            Complex.ToMatrix(complex).ToString().Should().Be("1 -2\r\n2 1");
         }
 
         /// <summary>
@@ -133,7 +133,7 @@ namespace FurtherMathTests
         public void Abs(int real, int imaginary, double result)
         {
             Complex complex = new Complex(real, imaginary);
-            Assert.AreEqual(result, complex.Abs());
+            complex.Abs().Should().Be(result);
         }
 
         /// <summary>
@@ -153,7 +153,7 @@ namespace FurtherMathTests
         public void Arg(int real, int imaginary, double result)
         {
             Complex complex = new Complex(real, imaginary);
-            Assert.AreEqual(result, complex.Arg());
+            complex.Arg().Should().Be(result);
         }
 
         /// <summary>
@@ -163,7 +163,7 @@ namespace FurtherMathTests
         public void TrigonometricDisplay()
         {
             Complex complex = new Complex(3, 4);
-            Assert.AreEqual("5*(cos(0.927295218001612) + i*sin(0.927295218001612))".Replace(".", CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator), complex.ToString(ComplexDisplay.Trigonometric));
+            complex.ToString(ComplexDisplay.Trigonometric).Should().Be("5*(cos(0.9272952180016122) + i*sin(0.9272952180016122))".Replace(".", CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator));
         }
 
         /// <summary>
@@ -175,10 +175,10 @@ namespace FurtherMathTests
             Complex firstComplex = new Complex(1, 4);
             Complex relinkComplex = firstComplex;
             Complex secondComplex = new Complex(1, 4);
-            Assert.IsTrue(firstComplex.Equals(secondComplex));
-            Assert.IsTrue(firstComplex == relinkComplex);
-            Assert.IsTrue(firstComplex == secondComplex);
-            Assert.IsFalse(firstComplex != secondComplex);
+            firstComplex.Equals(secondComplex).Should().BeTrue();
+            (firstComplex == relinkComplex).Should().BeTrue();
+            (firstComplex == secondComplex).Should().BeTrue();
+            (firstComplex != secondComplex).Should().BeFalse();
         }
 
         /// <summary>
@@ -190,9 +190,9 @@ namespace FurtherMathTests
             Complex a = new Complex(1, 4);
             Complex b = new Complex(2, 5);
             Complex c = a + b;
-            Assert.AreEqual(a + b, b + a);
-            Assert.AreEqual(a * b, b * a);
-            Assert.AreEqual(a * (b + c), a * b + a * c);
+            (a + b).Should().Be(b + a);
+            (a * b).Should().Be(b * a);
+            (a * (b + c)).Should().Be(a * b + a * c);
         }
     }
 }

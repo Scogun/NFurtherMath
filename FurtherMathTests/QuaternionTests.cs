@@ -1,4 +1,5 @@
-﻿using FurtherMath;
+﻿using FluentAssertions;
+using FurtherMath;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FurtherMathTests
@@ -48,7 +49,7 @@ namespace FurtherMathTests
             Quaternion firstQuaternion = new Quaternion(firstReal, firstIImaginary, firstJImaginary, firstKImaginary);
             Quaternion secondQuaternion = new Quaternion(secondReal, secondIImaginary, secondJImaginary, secondKImaginary);
             Quaternion thirdQuaternion = firstQuaternion + secondQuaternion;
-            Assert.AreEqual(result, thirdQuaternion.ToString());
+            thirdQuaternion.ToString().Should().Be(result);
         }
 
         /// <summary>
@@ -90,7 +91,7 @@ namespace FurtherMathTests
             Quaternion firstQuaternion = new Quaternion(firstReal, firstIImaginary, firstJImaginary, firstKImaginary);
             Quaternion secondQuaternion = new Quaternion(secondReal, secondIImaginary, secondJImaginary, secondKImaginary);
             Quaternion thirdQuaternion = firstQuaternion - secondQuaternion;
-            Assert.AreEqual(result, thirdQuaternion.ToString());
+            thirdQuaternion.ToString().Should().Be(result);
         }
 
         /// <summary>
@@ -132,7 +133,7 @@ namespace FurtherMathTests
             Quaternion firstQuaternion = new Quaternion(firstReal, firstIImaginary, firstJImaginary, firstKImaginary);
             Quaternion secondQuaternion = new Quaternion(secondReal, secondIImaginary, secondJImaginary, secondKImaginary);
             Quaternion thirdQuaternion = firstQuaternion * secondQuaternion;
-            Assert.AreEqual(result, thirdQuaternion.ToString());
+            thirdQuaternion.ToString().Should().Be(result);
         }
 
         /// <summary>
@@ -142,7 +143,7 @@ namespace FurtherMathTests
         public void ToMatrix()
         {
             Quaternion quaternion = new Quaternion(1, 2, 3, 4);
-            Assert.AreEqual("1 -2 -3 -4\r\n2 1 -4 3\r\n3 4 1 -2\r\n4 -3 2 1", quaternion.ToMatrix().ToString());
+            quaternion.ToMatrix().ToString().Should().Be("1 -2 -3 -4\r\n2 1 -4 3\r\n3 4 1 -2\r\n4 -3 2 1");
         }
 
         /// <summary>
@@ -152,7 +153,7 @@ namespace FurtherMathTests
         public void Norm()
         {
             Quaternion quaternion = new Quaternion(2, 2, 2, 2);
-            Assert.AreEqual(16, quaternion.Norm());
+            quaternion.Norm().Should().Be(16);
         }
 
         /// <summary>
@@ -162,7 +163,7 @@ namespace FurtherMathTests
         public void Abs()
         {
             Quaternion quaternion = new Quaternion(2, 2, 2, 2);
-            Assert.AreEqual(4, quaternion.Abs());
+            quaternion.Abs().Should().Be(4);
         }
 
         /// <summary>
@@ -173,9 +174,7 @@ namespace FurtherMathTests
         {
             Quaternion firstQuaternion = new Quaternion(2, 3, 4, 5);
             Quaternion secondQuaternion = new Quaternion(6, 7, 8, 9);
-            Assert.AreEqual(
-                (firstQuaternion * secondQuaternion).Conjugate(),
-                secondQuaternion.Conjugate() * firstQuaternion.Conjugate());
+            (firstQuaternion * secondQuaternion).Conjugate().Should().Be(secondQuaternion.Conjugate() * firstQuaternion.Conjugate());
         }
     }
 }
