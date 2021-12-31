@@ -1,8 +1,10 @@
-﻿using FluentAssertions;
-using FurtherMath;
+﻿#if NET6_0_OR_GREATER
+using System.Numerics;
+#endif
+using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FurtherMathTests
+namespace FurtherMath.Tests
 {
     /// <summary>
     /// The quaternion tests.
@@ -44,12 +46,12 @@ namespace FurtherMathTests
         [DataRow(2, 3, 4, 5, 1, 1, 1, 1, "3+4i+5j+6k")]
         [DataRow(2, 3, 4, 5, 6, 7, 8, 9, "8+10i+12j+14k")]
         [DataRow(2, 1, 4, 0, 6, 7, 0, 9, "8+8i+4j+9k")]
-        public void Sum(double firstReal, double firstIImaginary, double firstJImaginary, double firstKImaginary, double secondReal, double secondIImaginary, double secondJImaginary, double secondKImaginary, string result)
+        public void Sum(float firstReal, float firstIImaginary, float firstJImaginary, float firstKImaginary, float secondReal, float secondIImaginary, float secondJImaginary, float secondKImaginary, string result)
         {
-            Quaternion firstQuaternion = new Quaternion(firstReal, firstIImaginary, firstJImaginary, firstKImaginary);
-            Quaternion secondQuaternion = new Quaternion(secondReal, secondIImaginary, secondJImaginary, secondKImaginary);
+            Quaternion firstQuaternion = new Quaternion(firstIImaginary, firstJImaginary, firstKImaginary, firstReal);
+            Quaternion secondQuaternion = new Quaternion(secondIImaginary, secondJImaginary, secondKImaginary, secondReal);
             Quaternion thirdQuaternion = firstQuaternion + secondQuaternion;
-            thirdQuaternion.ToString().Should().Be(result);
+            thirdQuaternion.ToString(QuaternionDisplay.Algebraic).Should().Be(result);
         }
 
         /// <summary>
@@ -86,12 +88,12 @@ namespace FurtherMathTests
         [DataRow(2, 3, 4, 5, 1, 1, 1, 1, "1+2i+3j+4k")]
         [DataRow(2, 3, 4, 5, 6, 7, 8, 9, "-4-4i-4j-4k")]
         [DataRow(2, 1, 4, 0, 6, 7, 0, 9, "-4-6i+4j-9k")]
-        public void Subtraction(double firstReal, double firstIImaginary, double firstJImaginary, double firstKImaginary, double secondReal, double secondIImaginary, double secondJImaginary, double secondKImaginary, string result)
+        public void Subtraction(float firstReal, float firstIImaginary, float firstJImaginary, float firstKImaginary, float secondReal, float secondIImaginary, float secondJImaginary, float secondKImaginary, string result)
         {
-            Quaternion firstQuaternion = new Quaternion(firstReal, firstIImaginary, firstJImaginary, firstKImaginary);
-            Quaternion secondQuaternion = new Quaternion(secondReal, secondIImaginary, secondJImaginary, secondKImaginary);
+            Quaternion firstQuaternion = new Quaternion(firstIImaginary, firstJImaginary, firstKImaginary, firstReal);
+            Quaternion secondQuaternion = new Quaternion(secondIImaginary, secondJImaginary, secondKImaginary, secondReal);
             Quaternion thirdQuaternion = firstQuaternion - secondQuaternion;
-            thirdQuaternion.ToString().Should().Be(result);
+            thirdQuaternion.ToString(QuaternionDisplay.Algebraic).Should().Be(result);
         }
 
         /// <summary>
@@ -128,12 +130,12 @@ namespace FurtherMathTests
         [DataRow(2, 3, 4, 5, 1, 1, 1, 1, "-10+4i+8j+6k")]
         [DataRow(2, 3, 4, 5, 6, 7, 8, 9, "-86+28i+48j+44k")]
         [DataRow(2, 1, 4, 0, 6, 7, 0, 9, "5+56i+15j-10k")]
-        public void Multiplication(double firstReal, double firstIImaginary, double firstJImaginary, double firstKImaginary, double secondReal, double secondIImaginary, double secondJImaginary, double secondKImaginary, string result)
+        public void Multiplication(float firstReal, float firstIImaginary, float firstJImaginary, float firstKImaginary, float secondReal, float secondIImaginary, float secondJImaginary, float secondKImaginary, string result)
         {
-            Quaternion firstQuaternion = new Quaternion(firstReal, firstIImaginary, firstJImaginary, firstKImaginary);
-            Quaternion secondQuaternion = new Quaternion(secondReal, secondIImaginary, secondJImaginary, secondKImaginary);
+            Quaternion firstQuaternion = new Quaternion(firstIImaginary, firstJImaginary, firstKImaginary, firstReal);
+            Quaternion secondQuaternion = new Quaternion(secondIImaginary, secondJImaginary, secondKImaginary, secondReal);
             Quaternion thirdQuaternion = firstQuaternion * secondQuaternion;
-            thirdQuaternion.ToString().Should().Be(result);
+            thirdQuaternion.ToString(QuaternionDisplay.Algebraic).Should().Be(result);
         }
 
         /// <summary>
@@ -142,7 +144,7 @@ namespace FurtherMathTests
         [TestMethod]
         public void ToMatrix()
         {
-            Quaternion quaternion = new Quaternion(1, 2, 3, 4);
+            Quaternion quaternion = new Quaternion(2, 3, 4, 1);
             quaternion.ToMatrix().ToString().Should().Be("1 -2 -3 -4\r\n2 1 -4 3\r\n3 4 1 -2\r\n4 -3 2 1");
         }
 
@@ -172,8 +174,8 @@ namespace FurtherMathTests
         [TestMethod]
         public void Operations()
         {
-            Quaternion firstQuaternion = new Quaternion(2, 3, 4, 5);
-            Quaternion secondQuaternion = new Quaternion(6, 7, 8, 9);
+            Quaternion firstQuaternion = new Quaternion(3, 4, 5, 2);
+            Quaternion secondQuaternion = new Quaternion(7, 8, 9, 6);
             (firstQuaternion * secondQuaternion).Conjugate().Should().Be(secondQuaternion.Conjugate() * firstQuaternion.Conjugate());
         }
     }
