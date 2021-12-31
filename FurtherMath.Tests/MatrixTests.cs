@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using FluentAssertions;
-using FurtherMath;
 using FurtherMath.Exceptions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FurtherMathTests
+namespace FurtherMath.Tests
 {
     /// <summary>
     /// The matrix tests.

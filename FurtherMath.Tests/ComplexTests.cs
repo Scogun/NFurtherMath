@@ -1,10 +1,10 @@
 using System;
 using System.Globalization;
+using System.Numerics;
 using FluentAssertions;
-using FurtherMath;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace FurtherMathTests
+namespace FurtherMath.Tests
 {
     /// <summary>
     /// The complex tests.
@@ -21,7 +21,7 @@ namespace FurtherMathTests
             Complex firstComplex = new Complex(1, 1);
             Complex secondComplex = new Complex(2, 2);
             Complex thirdComplex = firstComplex + secondComplex;
-            thirdComplex.ToString().Should().Be("3+3i");
+            thirdComplex.ToString(ComplexDisplay.Algebraic).Should().Be("3+3i");
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace FurtherMathTests
             Complex firstComplex = new Complex(3, 4);
             Complex secondComplex = new Complex(2, 2);
             Complex thirdComplex = firstComplex - secondComplex;
-            thirdComplex.ToString().Should().Be("1+2i");
+            thirdComplex.ToString(ComplexDisplay.Algebraic).Should().Be("1+2i");
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace FurtherMathTests
             Complex firstComplex = new Complex(firstReal, firstImaginary);
             Complex secondComplex = new Complex(secondReal, secondImaginary);
             Complex thirdComplex = firstComplex * secondComplex;
-            thirdComplex.ToString().Should().Be(result);
+            thirdComplex.ToString(ComplexDisplay.Algebraic).Should().Be(result);
         }
 
         /// <summary>
@@ -92,7 +92,7 @@ namespace FurtherMathTests
             Complex firstComplex = new Complex(firstReal, firstImaginary);
             Complex secondComplex = new Complex(secondReal, secondImaginary);
             Complex thirdComplex = firstComplex / secondComplex;
-            thirdComplex.ToString().Should().Be(result.Replace(".", CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator));
+            thirdComplex.ToString(ComplexDisplay.Algebraic).Should().Be(result.Replace(".", CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator));
         }
 
         /// <summary>
@@ -102,8 +102,8 @@ namespace FurtherMathTests
         public void Conjugate()
         {
             Complex complex = new Complex(5, 6);
-            Complex.Conjugate(complex).ToString().Should().Be("5-6i");
-            complex.Conjugate().ToString().Should().Be("5-6i");
+            Complex.Conjugate(complex).ToString(ComplexDisplay.Algebraic).Should().Be("5-6i");
+            complex.Conjugate().ToString(ComplexDisplay.Algebraic).Should().Be("5-6i");
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace FurtherMathTests
         public void ToMatrix()
         {
             Complex complex = new Complex(1, 2);
-            Complex.ToMatrix(complex).ToString().Should().Be("1 -2\r\n2 1");
+            complex.ToMatrix().ToString().Should().Be("1 -2\r\n2 1");
         }
 
         /// <summary>

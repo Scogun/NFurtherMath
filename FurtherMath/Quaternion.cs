@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !NET6_0_OR_GREATER
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,39 +13,39 @@ namespace FurtherMath
         /// <summary>
         /// The real.
         /// </summary>
-        private readonly double real;
+        private readonly float real;
 
         /// <summary>
         /// The i imaginary.
         /// </summary>
-        private readonly double iImaginary;
+        private readonly float iImaginary;
 
         /// <summary>
         /// The j imaginary.
         /// </summary>
-        private readonly double jImaginary;
+        private readonly float jImaginary;
 
         /// <summary>
         /// The k imaginary.
         /// </summary>
-        private readonly double kImaginary;
+        private readonly float kImaginary;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Quaternion"/> class.
         /// </summary>
-        /// <param name="real">
-        /// The real.
-        /// </param>
         /// <param name="iImaginary">
-        /// The i imaginary.
+        ///     The i imaginary.
         /// </param>
         /// <param name="jImaginary">
-        /// The j imaginary.
+        ///     The j imaginary.
         /// </param>
         /// <param name="kImaginary">
-        /// The k imaginary.
+        ///     The k imaginary.
         /// </param>
-        public Quaternion(double real, double iImaginary, double jImaginary, double kImaginary)
+        /// <param name="real">
+        ///     The real.
+        /// </param>
+        public Quaternion(float iImaginary, float jImaginary, float kImaginary, float real)
         {
             this.real = real;
             this.iImaginary = iImaginary;
@@ -71,11 +72,11 @@ namespace FurtherMath
         /// </returns>
         public static Quaternion operator +(Quaternion firstQuaternion, Quaternion secondQuaternion)
         {
-            double newReal = firstQuaternion.real + secondQuaternion.real;
-            double newIImaginary = firstQuaternion.iImaginary + secondQuaternion.iImaginary;
-            double newJImaginary = firstQuaternion.jImaginary + secondQuaternion.jImaginary;
-            double newKImaginary = firstQuaternion.kImaginary + secondQuaternion.kImaginary;
-            return new Quaternion(newReal, newIImaginary, newJImaginary, newKImaginary);
+            var newReal = firstQuaternion.real + secondQuaternion.real;
+            var newIImaginary = firstQuaternion.iImaginary + secondQuaternion.iImaginary;
+            var newJImaginary = firstQuaternion.jImaginary + secondQuaternion.jImaginary;
+            var newKImaginary = firstQuaternion.kImaginary + secondQuaternion.kImaginary;
+            return new Quaternion(newIImaginary, newJImaginary, newKImaginary, newReal);
         }
 
         /// <summary>
@@ -92,11 +93,11 @@ namespace FurtherMath
         /// </returns>
         public static Quaternion operator -(Quaternion firstQuaternion, Quaternion secondQuaternion)
         {
-            double newReal = firstQuaternion.real - secondQuaternion.real;
-            double newIImaginary = firstQuaternion.iImaginary - secondQuaternion.iImaginary;
-            double newJImaginary = firstQuaternion.jImaginary - secondQuaternion.jImaginary;
-            double newKImaginary = firstQuaternion.kImaginary - secondQuaternion.kImaginary;
-            return new Quaternion(newReal, newIImaginary, newJImaginary, newKImaginary);
+            var newReal = firstQuaternion.real - secondQuaternion.real;
+            var newIImaginary = firstQuaternion.iImaginary - secondQuaternion.iImaginary;
+            var newJImaginary = firstQuaternion.jImaginary - secondQuaternion.jImaginary;
+            var newKImaginary = firstQuaternion.kImaginary - secondQuaternion.kImaginary;
+            return new Quaternion(newIImaginary, newJImaginary, newKImaginary, newReal);
         }
 
         /// <summary>
@@ -113,23 +114,23 @@ namespace FurtherMath
         /// </returns>
         public static Quaternion operator *(Quaternion firstQuaternion, Quaternion secondQuaternion)
         {
-            double newReal = firstQuaternion.real * secondQuaternion.real
-                             - firstQuaternion.iImaginary * secondQuaternion.iImaginary
-                             - firstQuaternion.jImaginary * secondQuaternion.jImaginary
-                             - firstQuaternion.kImaginary * secondQuaternion.kImaginary;
-            double newIImaginary = firstQuaternion.real * secondQuaternion.iImaginary
-                                   + firstQuaternion.iImaginary * secondQuaternion.real
-                                   + firstQuaternion.jImaginary * secondQuaternion.kImaginary
-                                   - firstQuaternion.kImaginary * secondQuaternion.jImaginary;
-            double newJImaginary = firstQuaternion.real * secondQuaternion.jImaginary
-                                   - firstQuaternion.iImaginary * secondQuaternion.kImaginary
-                                   + firstQuaternion.jImaginary * secondQuaternion.real
-                                   + firstQuaternion.kImaginary * secondQuaternion.iImaginary;
-            double newKImaginary = firstQuaternion.real * secondQuaternion.kImaginary
-                                   + firstQuaternion.iImaginary * secondQuaternion.jImaginary
-                                   - firstQuaternion.jImaginary * secondQuaternion.iImaginary
-                                   + firstQuaternion.kImaginary * secondQuaternion.real;
-            return new Quaternion(newReal, newIImaginary, newJImaginary, newKImaginary);
+            var newReal = firstQuaternion.real * secondQuaternion.real
+                          - firstQuaternion.iImaginary * secondQuaternion.iImaginary
+                          - firstQuaternion.jImaginary * secondQuaternion.jImaginary
+                          - firstQuaternion.kImaginary * secondQuaternion.kImaginary;
+            var newIImaginary = firstQuaternion.real * secondQuaternion.iImaginary
+                                + firstQuaternion.iImaginary * secondQuaternion.real
+                                + firstQuaternion.jImaginary * secondQuaternion.kImaginary
+                                - firstQuaternion.kImaginary * secondQuaternion.jImaginary;
+            var newJImaginary = firstQuaternion.real * secondQuaternion.jImaginary
+                                - firstQuaternion.iImaginary * secondQuaternion.kImaginary
+                                + firstQuaternion.jImaginary * secondQuaternion.real
+                                + firstQuaternion.kImaginary * secondQuaternion.iImaginary;
+            var newKImaginary = firstQuaternion.real * secondQuaternion.kImaginary
+                                + firstQuaternion.iImaginary * secondQuaternion.jImaginary
+                                - firstQuaternion.jImaginary * secondQuaternion.iImaginary
+                                + firstQuaternion.kImaginary * secondQuaternion.real;
+            return new Quaternion(newIImaginary, newJImaginary, newKImaginary, newReal);
         }
 
         /// <summary>
@@ -145,19 +146,19 @@ namespace FurtherMath
         {
             return new Matrix(new List<double[]>
                                   {
-                                      new[]
+                                      new double[]
                                           {
                                               quaternion.real, -quaternion.iImaginary, -quaternion.jImaginary, -quaternion.kImaginary
                                           },
-                                      new[]
+                                      new double[]
                                           {
                                               quaternion.iImaginary, quaternion.real, -quaternion.kImaginary, quaternion.jImaginary
                                           },
-                                      new[]
+                                      new double[]
                                           {
                                               quaternion.jImaginary, quaternion.kImaginary, quaternion.real, -quaternion.iImaginary
                                           },
-                                      new[]
+                                      new double[]
                                           {
                                               quaternion.kImaginary, -quaternion.jImaginary, quaternion.iImaginary, quaternion.real
                                           }
@@ -204,11 +205,9 @@ namespace FurtherMath
         /// </returns>
         public static Quaternion Conjugate(Quaternion quaternion)
         {
-            return new Quaternion(
-                quaternion.real,
-                -quaternion.iImaginary,
+            return new Quaternion(-quaternion.iImaginary,
                 -quaternion.jImaginary,
-                -quaternion.kImaginary);
+                -quaternion.kImaginary, quaternion.real);
         }
 
         /// <summary>
@@ -253,6 +252,11 @@ namespace FurtherMath
         public Quaternion Conjugate()
         {
             return Conjugate(this);
+        }
+
+        public string ToString(QuaternionDisplay format)
+        {
+            return ToString();
         }
 
         /// <summary>Determines whether the specified object is equal to the current object.</summary>
@@ -329,3 +333,4 @@ namespace FurtherMath
         }
     }
 }
+#endif

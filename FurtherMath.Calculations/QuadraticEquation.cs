@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Numerics;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -12,11 +13,11 @@ namespace FurtherMath.Calculations
 
         private readonly double c;
 
-        private static readonly Regex QuadraticCoefficient = new Regex("((?:^|[-+])\\d*)x\\^2", RegexOptions.Compiled);
+        private static readonly Regex QuadraticCoefficient = new("((?:^|[-+])\\d*)x\\^2", RegexOptions.Compiled);
 
-        private static readonly Regex LinearCoefficient = new Regex("((?:^|[-+])\\d*)x(?!\\^2)", RegexOptions.Compiled);
+        private static readonly Regex LinearCoefficient = new("((?:^|[-+])\\d*)x(?!\\^2)", RegexOptions.Compiled);
 
-        private static readonly Regex RestCoefficient = new Regex("((?:^|[-+])\\d+)(?!x)", RegexOptions.Compiled);
+        private static readonly Regex RestCoefficient = new("((?:^|[-+])\\d+)(?!x)", RegexOptions.Compiled);
 
         private static readonly Regex[] CoefficientRegexs = { QuadraticCoefficient, LinearCoefficient, RestCoefficient };
 
